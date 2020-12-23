@@ -39,6 +39,7 @@ defmodule Ueberauth.Strategy.Apple do
       {:ok, token} ->
         apple_user =
           Map.put(user, "uid", UeberauthApple.uid_from_id_token(token.other_params["id_token"]))
+          Map.put(user, "email", UeberauthApple.email_from_id_token(token.other_params["id_token"]))
 
         conn
         |> put_private(:apple_token, token)

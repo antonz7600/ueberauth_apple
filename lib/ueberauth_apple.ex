@@ -11,6 +11,15 @@ defmodule UeberauthApple do
     end
   end
 
+  def email_from_id_token(id_token) do
+    with keys <- fetch_public_keys(),
+         key <- get_appropriate_key(keys, id_token),
+         {true, %JOSE.JWT{fields: fields}, _JWS} <- JOSE.JWT.verify(key, id_token),
+         {:ok, email} <- {:ok, fields["email"]} do
+      email
+    end
+  end
+
   # As of Feb 12th 2020, this fetches a list of public keys from Apple
   defp fetch_public_keys() do
     {:ok, %{body: response_body}} = HTTPoison.get(@public_key_url)
