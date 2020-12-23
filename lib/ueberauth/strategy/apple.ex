@@ -41,7 +41,6 @@ defmodule Ueberauth.Strategy.Apple do
         |> Map.put("uid", UeberauthApple.uid_from_id_token(token.other_params["id_token"]))
         |> Map.put("email", UeberauthApple.email_from_id_token(token.other_params["id_token"]))
 
-        IO.inspect(apple_user)
         conn
         |> put_private(:apple_token, token)
         |> put_private(:apple_user, apple_user)
@@ -102,8 +101,6 @@ defmodule Ueberauth.Strategy.Apple do
   Fetches the fields to populate the info section of the `Ueberauth.Auth` struct.
   """
   def info(conn) do
-    IO.inspect(conn)
-
     user = conn.private.apple_user
     name = user["name"]
 
