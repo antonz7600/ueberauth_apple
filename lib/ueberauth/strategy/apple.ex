@@ -4,6 +4,7 @@ defmodule Ueberauth.Strategy.Apple do
   """
 
   use Ueberauth.Strategy, uid_field: :uid, default_scope: "name email"
+  use Ueberauth.Strategy, email_field: :email, default_scope: "name email"
 
   alias Ueberauth.Auth.Info
   alias Ueberauth.Auth.Credentials
@@ -77,6 +78,15 @@ defmodule Ueberauth.Strategy.Apple do
       |> to_string
 
     conn.private.apple_user[uid_field]
+  end
+
+  def email(conn) do
+    email_field =
+      conn
+      |> option(:email_field)
+      |> to_string
+
+    conn.private.apple_user[email_field]
   end
 
   @doc """
