@@ -3,8 +3,7 @@ defmodule Ueberauth.Strategy.Apple do
   Google Strategy for Überauth.
   """
 
-  use Ueberauth.Strategy, uid_field: :uid, default_scope: "name email"
-  use Ueberauth.Strategy, email_field: :email, default_scope: "name email"
+  use Ueberauth.Strategy, uid_field: :uid, email_field: :email, default_scope: "name email"
 
   alias Ueberauth.Auth.Info
   alias Ueberauth.Auth.Credentials
@@ -64,8 +63,8 @@ defmodule Ueberauth.Strategy.Apple do
   @doc false
   def handle_cleanup!(conn) do
     conn
-    # |> put_private(:apple_user, nil)
-    # |> put_private(:apple_token, nil)
+    |> put_private(:apple_user, nil)
+    |> put_private(:apple_token, nil)
   end
 
   @doc """
@@ -80,6 +79,9 @@ defmodule Ueberauth.Strategy.Apple do
     conn.private.apple_user[uid_field]
   end
 
+  @doc """
+  Fetches the email field from the response.
+  """
   def email(conn) do
     email_field =
       conn
