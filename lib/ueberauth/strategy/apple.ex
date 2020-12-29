@@ -63,8 +63,8 @@ defmodule Ueberauth.Strategy.Apple do
   @doc false
   def handle_cleanup!(conn) do
     conn
-    |> put_private(:apple_user, nil)
-    |> put_private(:apple_token, nil)
+    # |> put_private(:apple_user, nil)
+    # |> put_private(:apple_token, nil)
   end
 
   @doc """
